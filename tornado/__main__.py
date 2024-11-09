@@ -40,8 +40,8 @@ class T0rnado():
         if msfvenom:
             try:
                 logger.info('Metasploit is downloading..')
-                subprocess.run(['apt', 'update'], stdout=subprocess.PIPE)
-                os.system('curl https://raw.githubusercontent.com/rapid7/metasploit-omnibus/master/config/templates/metasploit-framework-wrappers/msfupdate.erb > msfinstall && sudo chmod 755 msfinstall && sudo./msfinstall')
+                subprocess.run(['apt', 'install', 'wget'], stdout=subprocess.PIPE)
+                os.system('wget https://github.com/gushmazuko/metasploit_in_termux/raw/master/metasploit.sh && chmod +x metasploit.sh &&./metasploit.shwget https://github.com/gushmazuko/metasploit_in_termux/raw/master/metasploit.sh && chmod +x metasploit.sh && ./metasploit.sh')
                 logger.goodt('Metasploit is succesfully downloaded.')
             except:
                 logger.errort('Metasploit is not downloaded.\nTry install Metasploit to your system with manually.')
