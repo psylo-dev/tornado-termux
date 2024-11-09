@@ -1,5 +1,3 @@
-# running main functions
-
 import os
 import signal
 import subprocess
@@ -9,7 +7,7 @@ from stem.control import Controller
 from importlib.metadata import version
 from tornado.core import logger
 from tornado.core.logger import banner, info, warn, green, reset
-from tornado.core import undetectable
+from tor2web import Tor2Web
 
 class T0rnado():
     def __init__(self):
@@ -33,7 +31,7 @@ class T0rnado():
             logger.info('Tor is downloading..')
             subprocess.run(['apt', 'update'], stdout=subprocess.PIPE)
             subprocess.run(['apt', 'install', 'which', 'tor'], stdout=subprocess.PIPE)
-            logger.goodt('Tor is succesfully downloaded.')
+            logger.goodt('Tor is successfully downloaded.')
         else:
             pass
         msfvenom = subprocess.call(['which', 'msfvenom'], stdout=subprocess.PIPE)
@@ -41,16 +39,16 @@ class T0rnado():
             try:
                 logger.info('Metasploit is downloading..')
                 subprocess.run(['apt', 'install', 'wget'], stdout=subprocess.PIPE)
-                os.system('wget https://github.com/gushmazuko/metasploit_in_termux/raw/master/metasploit.sh && chmod +x metasploit.sh &&./metasploit.shwget https://github.com/gushmazuko/metasploit_in_termux/raw/master/metasploit.sh && chmod +x metasploit.sh && ./metasploit.sh')
-                logger.goodt('Metasploit is succesfully downloaded.')
+                os.system('wget https://github.com/gushmazuko/metasploit_in_termux/raw/master/metasploit.sh && chmod +x metasploit.sh && ./metasploit.sh')
+                logger.goodt('Metasploit is successfully downloaded.')
             except:
-                logger.errort('Metasploit is not downloaded.\nTry install Metasploit to your system with manually.')
+                logger.errort('Metasploit is not downloaded.\nTry to install Metasploit manually.')
         else:
             pass
             
     def configure(self):
         password = '1346790abc'
-        logger.infot('ControlPort and HashedControlPassword is setting at $PREFIX/etc/tor/torrc file..')
+        logger.infot('ControlPort and HashedControlPassword are setting at $PREFIX/etc/tor/torrc file..')
         try:
             command = f"tor --hash-password {password}"
             result = subprocess.run(command, shell=True, check=True, stdout=subprocess.PIPE, universal_newlines=True)
@@ -68,7 +66,7 @@ class T0rnado():
     def connection(self):
         logger.infot('Tor connection is starting..')
         with Controller.from_port(port=9051) as controller:
-            controller.authenticate(password='noentry')
+            controller.authenticate(password='1346790abc')
             logger.infot(f'Tor is running version {controller.get_version()}')
             logger.infot('Creating hidden service in hidden_service folder..')
             hidden_service = os.path.join(controller.get_conf('DataDirectory', os.getcwd()), 'hidden_service')
@@ -108,7 +106,7 @@ class T0rnado():
             self.configure()
         except:
             pass
-        self.connection() + self.shell(tor2web)
+        self.connection()
         undetectable.slayer()
         undetectable.compile()
 
@@ -124,3 +122,6 @@ def main():
     else:
         print(banner)
         parser.print_help()
+
+if __name__ == '__main__':
+    main()
