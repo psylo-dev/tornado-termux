@@ -18,11 +18,9 @@ reset = Style.RESET_ALL
 grey = '\033[37m'  # Hellgrau
 Datetime = ("[" + cyan + time_now + reset + "]")
 
-# Header with updated details (Program name, version, build date)
 banner = f"""
 {grey}=============================================
-  PROGRAM NAME: Tornado Engine
-  VERSION: {version('tornado')}
+  PROGRAM NAME: Tornado Engine {version('tornado')}
   BUILD DATE: {time_now}
 ============================================={reset}
 """
@@ -54,6 +52,3 @@ def warn(msg):
 
 def warnt(msg):
     print(Datetime + " [" + yellow + 'WRN' + reset + "] " + msg)
-
-# Display banner
-print(banner)
